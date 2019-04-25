@@ -16,12 +16,7 @@ public class NepaliTOEnglish extends AppCompatActivity {
 
     private ListView lstDictionary;
 
-    public static  final String words[] = {
-            "k xa", "How are you?",
-            "Sanchai xu", "I am fine!",
-            "k gardai", "What are you doing?",
-            "jaum ghumna", "Let's go for visit!"
-    };
+
     private Map<String,String> dictionary;
 
     @Override
@@ -32,9 +27,7 @@ public class NepaliTOEnglish extends AppCompatActivity {
         lstDictionary = findViewById(R.id.lstDictionary);
         dictionary = new HashMap<>();
 
-        for (int i=0; i<words.length; i +=2) {
-            dictionary.put(words[i], words[i + 1]);
-        }
+
 
         ArrayAdapter adapter = new ArrayAdapter<>(
                 this,

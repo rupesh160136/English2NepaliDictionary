@@ -10,6 +10,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,20 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
         btnclick = findViewById(R.id.btnclick);
 
-        btnclick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,Main2Activity.class);
-                startActivity(intent);
-            }
-        });
 
         lstDictionary = findViewById(R.id.lstDictionary);
         dictionary = new HashMap<>();
+        readFromFile();
 
-        for (int i=0; i<words.length; i +=2) {
-            dictionary.put(words[i], words[i + 1]);
-        }
 
         ArrayAdapter adapter = new ArrayAdapter<>(
                 this,
@@ -78,4 +74,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    private void readFromFile(){
+        try {
+            FileInputStream fos = openFileInput("words.txt");
+            InputStreamReader isr = new InputStreamReader(fos);
+            BufferedReader br = new BufferedReader(isr);
+            String line="";
+            while ((line=br.readLine()) !=null){
+                String[] parts = line.split("->");
+                dictionary.put(parts[0], parts[1]);
+            }
+
+        }catch (IOException e){
+            e.printStackTrace();
+
+        }
+    }
+
 }
