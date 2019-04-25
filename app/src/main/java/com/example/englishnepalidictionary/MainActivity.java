@@ -24,20 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView tvfirst;
     private Button btnclick;
-
-
-
     private ListView lstDictionary;
-
-    public static  final String words[] = {
-            "k xa", "How are you?",
-            "Sanchai xu", "I am fine!",
-            "k gardai", "What are you doing?",
-            "jaum ghumna", "Let's go for visit!"
-    };
     private Map<String,String> dictionary;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +34,18 @@ public class MainActivity extends AppCompatActivity {
 
 
         btnclick = findViewById(R.id.btnclick);
+        btnclick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddWordActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         lstDictionary = findViewById(R.id.lstDictionary);
         dictionary = new HashMap<>();
-        readFromFile();
+
 
 
         ArrayAdapter adapter = new ArrayAdapter<>(
@@ -82,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             String line="";
             while ((line=br.readLine()) !=null){
                 String[] parts = line.split("->");
-                dictionary.put(parts[0], parts[1]);
+                lstDictionary.put(parts[0]);
             }
 
         }catch (IOException e){
@@ -90,5 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
 
 }
